@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">REU</string>
+    <string name="app_subtitle">الهندسة العكسية لمحرك يونيتي</string>
+    <string name="nav_dashboard">لوحة التحكم</string>
+    <string name="nav_import">الاستيراد</string>
+    <string name="nav_inspector">الفاحص</string>
+    <string name="nav_analysis">التحليل</string>
+    <string name="nav_code">الشيفرة</string>
+    <string name="nav_assets">الأصول</string>
+    <string name="nav_scenes">المشاهد</string>
+    <string name="nav_il2cpp">مختبر IL2CPP</string>
+    <string name="nav_tools">الأدوات</string>
+    <string name="nav_rebuilder">إعادة البناء</string>
+    <string name="nav_export">التصدير</string>
+    <string name="nav_settings">الإعدادات</string>
+
+    <string name="provenance_original">بيانات أصلية مستردة</string>
+    <string name="provenance_reconstructed">بيانات مفككة أو معاد بناؤها</string>
+    <string name="provenance_placeholder">بيانات بديلة مولدة</string>
+    <string name="provenance_missing">بيانات مفقودة أو غير قابلة للاسترداد</string>
+
+    <string name="action_import_game">استيراد لعبة</string>
+    <string name="action_analyze_game">تحليل اللعبة</string>
+    <string name="action_browse_assets">تصفح الأصول</string>
+    <string name="action_recover_code">استرداد الشيفرة</string>
+    <string name="action_rebuild_project">إعادة بناء المشروع</string>
+    <string name="action_manage_tools">إدارة الأدوات</string>
+    <string name="action_cancel">إلغاء</string>
+    <string name="action_export">تصدير</string>
+    <string name="action_delete">حذف</string>
+    <string name="action_install">تثبيت</string>
+    <string name="action_update">تحديث</string>
+    <string name="action_uninstall">إزالة</string>
+
+    <string name="label_active_project">المشروع النشط</string>
+    <string name="label_no_project">لم يتم تحديد مشروع</string>
+    <string name="label_recent_projects">المشاريع الحديثة</string>
+    <string name="label_installed_tools">الأدوات المثبتة</string>
+    <string name="label_available_updates">التحديثات المتاحة</string>
+    <string name="label_active_tasks">المهام النشطة</string>
+    <string name="label_completed_ops">العمليات المكتملة</string>
+    <string name="label_storage_usage">استخدام التخزين</string>
+    <string name="label_quick_actions">إجراءات سريعة</string>
+
+    <string name="settings_language">اللغة</string>
+    <string name="settings_language_system">لغة النظام الافتراضية</string>
+    <string name="settings_language_en">English (LTR)</string>
+    <string name="settings_language_ar">العربية (RTL)</string>
+    <string name="settings_offline_mode">الوضع المحلي دون اتصال</string>
+    <string name="settings_memory_limit">حد ذاكرة البث المؤقتة</string>
+    <string name="settings_native_engine">حالة المحرك الأصلي C++20</string>
+    <string name="settings_clear_temp">تنظيف مساحة العمل المؤقتة</string>
+    <string name="settings_licenses">تراخيص الطرف الثالث</string>
+    <string name="settings_security_policy">الاستخدام المصرح به وسياسة الأمان</string>
+</resources>

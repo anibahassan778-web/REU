@@ -1,0 +1,6 @@
+{
+  "name": "REU",
+  "description": "REU (Reverse Engineering Unity) — Native Android Unity game build analyzer, asset extractor, Mono/IL2CPP inspector, and project reconstruction platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
