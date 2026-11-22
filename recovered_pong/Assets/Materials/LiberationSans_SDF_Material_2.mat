@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  m_ObjectHideFlags: 0
+  m_Name: LiberationSans SDF Material
+  # Source PathID: 5 | Binary Size: 956 bytes
+  m_ShaderHint: "TextMeshPro/Mobile/Distance Field"
+  m_ShaderKeywords: 
+  m_SavedProperties:
+    m_ExtractedPropertyNames:
+    - _MainTex
+    - _ColorMask
+    - _CullMode
+    - _FaceDilate
+    - _GradientScale
+    - _MaskSoftnessX
+    - _MaskSoftnessY
+    - _OutlineSoftness
+    - _OutlineWidth
+    - _PerspectiveFilter
+    - _ScaleRatioAfff?
+    - _ScaleRatioB
+    - _ScaleRatioC33;?
+    - _ScaleX
+    - _ScaleY
+    - _ShaderFlags
+    - _Sharpness
+    - _Stencil
+    - _StencilComp
+    - _StencilOp
+    - _StencilReadMask
+    - _StencilWriteMask
+    - _TextureHeight
+    - _TextureWidth
+    - _UnderlayDilate
+    - _UnderlayOffsetX
+    - _UnderlayOffsetY
+    - _UnderlaySoftness
+    - _VertexOffsetX
+    - _VertexOffsetY
+    - _WeightBold
+  m_LightmapFlags: 4

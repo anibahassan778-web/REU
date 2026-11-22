@@ -1,0 +1,791 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+# Reconstructed by REU SceneEngine from _unpacked/assets_bin_Data_data.unity3d/level0
+--- !u!1 &1
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 41}
+  - component: {fileID: 26}
+  - component: {fileID: 56}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &2
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 42}
+  - component: {fileID: 27}
+  - component: {fileID: 57}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &3
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 43}
+  - component: {fileID: 28}
+  - component: {fileID: 60}
+  - component: {fileID: 59}
+  - component: {fileID: 58}
+  m_Layer: 5
+  m_Name: OK
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &4
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 44}
+  - component: {fileID: 29}
+  - component: {fileID: 61}
+  m_Layer: 5
+  m_Name: Pong
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &5
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 45}
+  - component: {fileID: 30}
+  - component: {fileID: 62}
+  m_Layer: 5
+  m_Name: Selector 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &6
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 46}
+  - component: {fileID: 31}
+  - component: {fileID: 63}
+  m_Layer: 5
+  m_Name: AdsError
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &7
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 17}
+  - component: {fileID: 19}
+  - component: {fileID: 21}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &8
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 47}
+  - component: {fileID: 32}
+  - component: {fileID: 65}
+  - component: {fileID: 64}
+  - component: {fileID: 67}
+  - component: {fileID: 66}
+  m_Layer: 5
+  m_Name: Play
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &9
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 48}
+  - component: {fileID: 33}
+  - component: {fileID: 70}
+  - component: {fileID: 69}
+  - component: {fileID: 68}
+  - component: {fileID: 20}
+  - component: {fileID: 71}
+  m_Layer: 5
+  m_Name: Rewarded Ads Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &10
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 49}
+  - component: {fileID: 34}
+  - component: {fileID: 72}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &11
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 18}
+  - component: {fileID: 55}
+  - component: {fileID: 73}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &12
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 50}
+  - component: {fileID: 35}
+  - component: {fileID: 74}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &13
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 51}
+  - component: {fileID: 36}
+  - component: {fileID: 75}
+  - component: {fileID: 22}
+  m_Layer: 5
+  m_Name: Credit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &14
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52}
+  - component: {fileID: 40}
+  - component: {fileID: 77}
+  - component: {fileID: 76}
+  - component: {fileID: 37}
+  - component: {fileID: 78}
+  - component: {fileID: 79}
+  m_Layer: 5
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &15
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 53}
+  - component: {fileID: 38}
+  - component: {fileID: 81}
+  - component: {fileID: 80}
+  m_Layer: 5
+  m_Name: HowToPlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &16
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 54}
+  - component: {fileID: 39}
+  - component: {fileID: 82}
+  m_Layer: 5
+  m_Name: Selector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &17
+Transform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 7}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: -10.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &18
+Transform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 11}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!224 &41
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 1}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 48}
+  m_RootOrder: 1056964608
+--- !u!224 &42
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 2}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 3.0, y: 2.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 48}
+  m_RootOrder: 0
+--- !u!224 &43
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 3}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 46}
+  m_RootOrder: 1056964608
+--- !u!224 &44
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 4}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 5.0, y: 4.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 52}
+  m_RootOrder: 1056964608
+--- !u!224 &45
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 5}
+  m_LocalRotation: {x: -0.0, y: -0.016386209, z: -0.0, w: 0.99986583}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 14.0}
+  m_LocalScale: {x: 0.33333334, y: 0.49999997, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 47}
+  m_RootOrder: 1056964608
+--- !u!224 &46
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 6}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children:
+  - {fileID: 43}
+  m_Father: {fileID: 48}
+  m_RootOrder: 1056964608
+--- !u!224 &47
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 8}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 3.0, y: 2.0, z: 1.0}
+  m_Children:
+  - {fileID: 49}
+  - {fileID: 45}
+  m_Father: {fileID: 52}
+  m_RootOrder: 1056964608
+--- !u!224 &48
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 9}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children:
+  - {fileID: 42}
+  - {fileID: 41}
+  - {fileID: 46}
+  m_Father: {fileID: 52}
+  m_RootOrder: 1056964608
+--- !u!224 &49
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 10}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 47}
+  m_RootOrder: 0
+--- !u!224 &50
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 12}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 53}
+  m_RootOrder: 0
+--- !u!224 &51
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 13}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 4.0, y: 3.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 52}
+  m_RootOrder: 1056964608
+--- !u!224 &52
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 14}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 0.0, y: 0.0, z: 0.0}
+  m_Children:
+  - {fileID: 44}
+  - {fileID: 51}
+  - {fileID: 53}
+  - {fileID: 47}
+  - {fileID: 48}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!224 &53
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 15}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 3.0, y: 2.0, z: 1.0}
+  m_Children:
+  - {fileID: 50}
+  - {fileID: 54}
+  m_Father: {fileID: 52}
+  m_RootOrder: 1056964608
+--- !u!224 &54
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 16}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 0.33333337, y: 0.5, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 53}
+  m_RootOrder: 1056964608
+--- !u!20 &19
+Camera:
+  m_ObjectHideFlags: 0
+  m_Name: Camera_19
+--- !u!23 &20
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: MeshRenderer_20
+--- !u!81 &21
+UnityClass_81:
+  m_ObjectHideFlags: 0
+  m_Name: UnityClass_81_21
+--- !u!82 &22
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_Name: AudioSource_22
+--- !u!104 &23
+UnityClass_104:
+  m_ObjectHideFlags: 0
+  m_Name: UnityClass_104_23
+--- !u!157 &24
+UnityClass_157:
+  m_ObjectHideFlags: 0
+  m_Name: UnityClass_157_24
+--- !u!196 &25
+UnityClass_196:
+  m_ObjectHideFlags: 0
+  m_Name: UnityClass_196_25
+--- !u!222 &26
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_26
+--- !u!222 &27
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_27
+--- !u!222 &28
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_28
+--- !u!222 &29
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_29
+--- !u!222 &30
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_30
+--- !u!222 &31
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_31
+--- !u!222 &32
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_32
+--- !u!222 &33
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_33
+--- !u!222 &34
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_34
+--- !u!222 &35
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_35
+--- !u!222 &36
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_36
+--- !u!222 &37
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_37
+--- !u!222 &38
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_38
+--- !u!222 &39
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_39
+--- !u!223 &40
+Canvas:
+  m_ObjectHideFlags: 0
+  m_Name: Canvas_40
+--- !u!114 &55
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 11}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 760} # UnityEngine.EventSystems.EventSystem (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &56
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 1}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1598} # UnityEngine.UI.Image (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &57
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 2}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &58
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 3}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 291} # ErrorOk (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &59
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 3}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &60
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 3}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 476} # UnityEngine.UI.Button (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &61
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 4}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &62
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 5}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1598} # UnityEngine.UI.Image (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &63
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 6}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &64
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 8}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 134} # PlayToSample (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &65
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 8}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 476} # UnityEngine.UI.Button (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &66
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 8}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1424} # InterstitialAds (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &67
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 8}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1462} # AdsInitializerInterstitial (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &68
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 9}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 476} # UnityEngine.UI.Button (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &69
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 9}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 781} # RewardedAdsButton (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &70
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 9}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 621} # AdsInitializer (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &71
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 9}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1598} # UnityEngine.UI.Image (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &72
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 10}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &73
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 11}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 480} # UnityEngine.EventSystems.StandaloneInputModule (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &74
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 12}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &75
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 13}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &76
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 14}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1400} # UnityEngine.UI.GraphicRaycaster (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &77
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 14}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 83} # UnityEngine.UI.CanvasScaler (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &78
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 14}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1598} # UnityEngine.UI.Image (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &79
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 14}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1476} # BannerAds (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &80
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 15}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1426} # HowToPlay (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &81
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 15}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 476} # UnityEngine.UI.Button (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &82
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 16}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1598} # UnityEngine.UI.Image (UnityEngine.UI.dll)
+  m_Name: 

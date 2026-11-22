@@ -24,6 +24,7 @@ import com.reu.core.storage.WorkspaceManager
 import com.reu.engine.detector.UnityDetectionReport
 import com.reu.engine.elf.ElfAnalysisReport
 import com.reu.engine.il2cpp.Il2CppPipelineReport
+import com.reu.engine.reconstruction.RebuildMode
 import com.reu.engine.reconstruction.ReconstructionReport
 import com.reu.engine.scene.SceneGraphSummary
 import com.reu.features.pipeline.ReuPipelineOrchestrator
@@ -264,18 +265,23 @@ class ReuMainViewModel(
     }
   }
 
-  fun rebuildProject(project: ProjectEntity) {
+  fun rebuildProject(project: ProjectEntity, mode: RebuildMode = RebuildMode.FULL_PROJECT) {
     jobCoordinator.launchJob(
       projectId = project.id,
       jobType = JobType.REBUILD_PROJECT,
-      title = "Rebuild Project: ${project.displayName}",
+      title = if (mode == RebuildMode.CODE_ONLY) "Recover Code Only: ${project.displayName}" else "Rebuild Project: ${project.displayName}",
     ) { _, updateProgress ->
-      updateProgress(35, "Generating RecoveredProject structure...")
-      val report = orchestrator.rebuildUnityProject(project)
+      updateProgress(35, if (mode == RebuildMode.CODE_ONLY) "Extracting game scripts only (no assets/libraries)..." else "Generating RecoveredProject structure...")
+      val report = orchestrator.rebuildUnityProject(project, mode)
       _lastRebuild.value = report
       refreshStorageStats()
-      updateProgress(100, "Project rebuilt at ${report.outputDirectory}")
-      _statusBanner.value = "Project rebuilt (${report.scriptsWritten} scripts, ${report.assetsCopied} assets)"
+      updateProgress(100, "Output ready at ${report.outputDirectory}")
+      _statusBanner.value =
+        if (mode == RebuildMode.CODE_ONLY) {
+          "Recovered ${report.scriptsWritten} game scripts (${report.excludedLibraryCount} libraries excluded)"
+        } else {
+          "Project rebuilt (${report.scriptsWritten} scripts, ${report.assetsCopied} assets)"
+        }
     }
   }
 

@@ -31,7 +31,9 @@ import com.reu.engine.export.ZipExportResult
 import com.reu.engine.il2cpp.Il2CppPipelineReport
 import com.reu.engine.model.MeshDataModel
 import com.reu.engine.model.ModelEngine
+import com.reu.engine.mono.MonoAnalyzer
 import com.reu.engine.reconstruction.ProjectRebuilder
+import com.reu.engine.reconstruction.RebuildMode
 import com.reu.engine.reconstruction.ReconstructionReport
 import com.reu.engine.scene.SceneEngine
 import com.reu.engine.scene.SceneGraphSummary
@@ -248,31 +250,37 @@ class ReuPipelineOrchestrator(
       }
     }
 
-    // Mono analysis
-    onProgress(40, "Inspecting Mono managed assemblies...")
+    // Mono analysis: decompile game assemblies; track third-party/engine libraries separately without re-exporting them
+    onProgress(40, "Inspecting Mono managed game assemblies...")
+    val referencedLibraries = linkedSetOf<String>()
     for (relDll in detection.managedAssemblies) {
       token.checkPoint()
       val dllFile = File(extractedDir, relDll)
-      if (dllFile.exists()) {
-        val monoReport = ilSpyAdapter.inspectManagedAssembly(dllFile)
-        for (t in monoReport.types) {
-          symbols.add(
-            CodeSymbolEntity(
-              id = UUID.randomUUID().toString(),
-              projectId = project.id,
-              assemblyName = dllFile.name,
-              namespaceName = t.namespaceName.ifBlank { "<global>" },
-              typeName = t.typeName,
-              memberSignature = "${t.methods.size} methods, ${t.fields.size} fields",
-              symbolKind = "MonoClass",
-              rvaAddress = t.methods.firstOrNull()?.rvaHex,
-              sourcePreview = t.reconstructedCSharp,
-              provenance = DataProvenance.DECOMPILED_RECONSTRUCTED,
-            ),
-          )
-        }
+      if (!dllFile.exists()) continue
+      if (MonoAnalyzer.isIncludedLibraryAssembly(dllFile.name)) {
+        referencedLibraries.add(dllFile.name)
+        continue
+      }
+      val monoReport = ilSpyAdapter.inspectManagedAssembly(dllFile)
+      referencedLibraries.addAll(monoReport.referencedAssemblies.map { if (it.endsWith(".dll", true)) it else "$it.dll" })
+      for (t in monoReport.types) {
+        symbols.add(
+          CodeSymbolEntity(
+            id = UUID.randomUUID().toString(),
+            projectId = project.id,
+            assemblyName = dllFile.name,
+            namespaceName = t.namespaceName.ifBlank { "<global>" },
+            typeName = t.typeName,
+            memberSignature = "${t.methods.size} methods, ${t.fields.size} fields",
+            symbolKind = "MonoClass",
+            rvaAddress = t.methods.firstOrNull()?.rvaHex,
+            sourcePreview = t.reconstructedCSharp,
+            provenance = DataProvenance.DECOMPILED_RECONSTRUCTED,
+          ),
+        )
       }
     }
+    File(workspace.inspectionDir, "referenced_libraries.json").writeText(json.encodeToString(referencedLibraries.sorted()))
 
     // IL2CPP analysis
     onProgress(70, "Parsing IL2CPP global-metadata.dat & ELF symbols...")
@@ -318,141 +326,43 @@ class ReuPipelineOrchestrator(
     val workspace = workspaceManager.getOrCreateWorkspace(project.id)
     val extractedDir = File(workspace.sourceDir, "extracted")
     val outAssetsDir = workspace.extractedAssetsDir
+    if (outAssetsDir.exists()) outAssetsDir.deleteRecursively()
+    outAssetsDir.mkdirs()
     val detection = unityDetector.detect(extractedDir)
 
-    val parsedObjects = mutableListOf<ParsedUnityObject>()
-    val assetEntities = mutableListOf<AssetEntryEntity>()
-
-    onProgress(20, "Scanning Unity AssetBundles & SerializedFiles...")
-    val containers = (detection.assetFiles + detection.assetBundles + detection.levelFiles).distinct()
-    for ((idx, relPath) in containers.withIndex()) {
-      token.checkPoint()
-      val file = File(extractedDir, relPath)
-      if (!file.exists()) continue
-      val inspection = unityPyAdapter.inspectAssetContainer(file, relPath)
-      inspection.serializedSummary?.objects?.forEach { obj ->
-        parsedObjects.add(obj)
-        val extractedFile = tryExtractPayload(file, obj, outAssetsDir)
-        assetEntities.add(
-          AssetEntryEntity(
-            id = "${project.id}_${obj.sourceFile.hashCode()}_${obj.pathId}",
-            projectId = project.id,
-            pathId = obj.pathId,
-            name = obj.name,
-            originalPath = relPath,
-            kind = obj.assetKind,
-            unityTypeName = obj.unityTypeName,
-            sourceArchivePath = relPath,
-            byteOffset = obj.byteOffset,
-            byteSize = obj.byteSize,
-            provenance = if (extractedFile != null) DataProvenance.ORIGINAL_RECOVERED else DataProvenance.DECOMPILED_RECONSTRUCTED,
-            extractedFilePath = extractedFile?.absolutePath,
-            previewMetadataJson = "{\"classId\":${obj.classId},\"offset\":${obj.byteOffset}}",
-            extractionStatus = if (extractedFile != null) "Extracted" else "Indexed (Serialized)",
-          ),
-        )
-      }
-      inspection.bundleSummary?.let { bundle ->
-        bundle.directoryEntries.forEachIndexed { bIdx, entryName ->
-          assetEntities.add(
-            AssetEntryEntity(
-              id = "${project.id}_bundle_${relPath.hashCode()}_$bIdx",
-              projectId = project.id,
-              pathId = bIdx.toLong(),
-              name = entryName,
-              originalPath = "$relPath/$entryName",
-              kind = AssetKind.OTHER,
-              unityTypeName = "UnityFS Entry (${bundle.unityRevision})",
-              sourceArchivePath = relPath,
-              byteOffset = 0L,
-              byteSize = bundle.bundleSize,
-              provenance = DataProvenance.ORIGINAL_RECOVERED,
-              extractedFilePath = null,
-              previewMetadataJson = "{\"formatVersion\":${bundle.formatVersion}}",
-              extractionStatus = "Bundle Indexed",
-            ),
-          )
-        }
-      }
-      if (containers.isNotEmpty()) {
-        onProgress(20 + ((idx + 1) * 50) / containers.size, "Parsed $relPath")
-      }
-    }
-
-    // Also index StreamingAssets direct media/config files
-    for (relStream in detection.streamingAssets) {
-      token.checkPoint()
-      val srcFile = File(extractedDir, relStream)
-      if (!srcFile.exists()) continue
-      val destFile = PathTraversalGuard.resolveSafeTarget(outAssetsDir, "StreamingAssets/${srcFile.name}")
-      destFile.parentFile?.mkdirs()
-      srcFile.copyTo(destFile, overwrite = true)
-      val kind = classifyExtension(srcFile.extension)
-      assetEntities.add(
-        AssetEntryEntity(
-          id = "${project.id}_stream_${relStream.hashCode()}",
-          projectId = project.id,
-          pathId = relStream.hashCode().toLong(),
-          name = srcFile.name,
-          originalPath = relStream,
-          kind = kind,
-          unityTypeName = "StreamingAsset (${srcFile.extension.ifBlank { "bin" }})",
-          sourceArchivePath = relStream,
-          byteOffset = 0L,
-          byteSize = srcFile.length(),
-          provenance = DataProvenance.ORIGINAL_RECOVERED,
-          extractedFilePath = destFile.absolutePath,
-          previewMetadataJson = null,
-          extractionStatus = "Extracted",
-        ),
+    onProgress(15, "Unpacking UnityFS bundles & indexing assets...")
+    val extractor =
+      UnityFullAssetExtractor(
+        assetParser = assetParser,
+        textureEngine = textureEngine,
+        audioEngine = audioEngine,
+        modelEngine = modelEngine,
+        sceneEngine = sceneEngine,
       )
-    }
+    val outcome =
+      extractor.extractAll(
+        projectId = project.id,
+        extractedDir = extractedDir,
+        outAssetsDir = outAssetsDir,
+        bundlePaths = detection.assetBundles,
+        rawAssetAndLevelPaths = (detection.assetFiles + detection.levelFiles).distinct(),
+        streamingAssetPaths = detection.streamingAssets,
+        token = token,
+        onProgress = onProgress,
+      )
 
-    onProgress(80, "Reconstructing scene hierarchy & dependency graph...")
-    val sceneGraph = sceneEngine.buildSceneSummary(parsedObjects)
-    File(workspace.inspectionDir, "scene_graph.json").writeText(json.encodeToString(sceneGraph))
+    onProgress(90, "Writing scene graph & dependency graph...")
+    File(workspace.inspectionDir, "scene_graph.json").writeText(json.encodeToString(outcome.sceneGraph))
 
-    val explicitRefs = parsedObjects.associate { obj ->
+    val explicitRefs = outcome.parsedObjects.associate { obj ->
       "${project.id}_${obj.sourceFile.hashCode()}_${obj.pathId}" to obj.referencedPathIds
     }
-    val depReport = dependencyEngine.buildGraph(project.id, assetEntities, explicitRefs)
-    repository.replaceAssetsForProject(project.id, assetEntities)
+    val depReport = dependencyEngine.buildGraph(project.id, outcome.assetEntities, explicitRefs)
+    repository.replaceAssetsForProject(project.id, outcome.assetEntities)
     repository.replaceEdgesForProject(project.id, depReport.edges)
 
-    onProgress(100, "Indexed ${assetEntities.size} assets across ${containers.size} containers")
-    return assetEntities to sceneGraph
-  }
-
-  private fun tryExtractPayload(containerFile: File, obj: ParsedUnityObject, outAssetsDir: File): File? {
-    if (obj.byteOffset < 0 || obj.byteSize <= 0 || obj.byteOffset + obj.byteSize > containerFile.length()) {
-      return null
-    }
-    val safeName = FormatUtils.sanitizeFileName(obj.name)
-    return when (obj.assetKind) {
-      AssetKind.AUDIO -> {
-        if (obj.byteSize > 32L * 1024 * 1024) return null
-        val slice = ByteArray(obj.byteSize.toInt())
-        containerFile.inputStream().use { input ->
-          input.skip(obj.byteOffset)
-          input.read(slice)
-        }
-        val res = audioEngine.inspectAndExportAudioPayload(safeName, slice, File(outAssetsDir, "Audio"))
-        res.exportedPath?.let { File(it) }
-      }
-      AssetKind.TEXT_ASSET,
-      AssetKind.SHADER -> {
-        if (obj.byteSize > 2L * 1024 * 1024) return null
-        val slice = ByteArray(obj.byteSize.toInt())
-        containerFile.inputStream().use { input ->
-          input.skip(obj.byteOffset)
-          input.read(slice)
-        }
-        val dir = File(outAssetsDir, if (obj.assetKind == AssetKind.SHADER) "Shaders" else "TextAssets").apply { mkdirs() }
-        val ext = if (obj.assetKind == AssetKind.SHADER) "shader" else "txt"
-        File(dir, "$safeName.$ext").apply { writeBytes(slice) }
-      }
-      else -> null
-    }
+    onProgress(100, "Extracted ${outcome.assetEntities.count { it.extractedFilePath != null }} / ${outcome.assetEntities.size} assets across ${outcome.containersScanned} containers")
+    return outcome.assetEntities to outcome.sceneGraph
   }
 
   fun exportAssetToRequestedFormat(
@@ -498,12 +408,19 @@ class ReuPipelineOrchestrator(
     }
   }
 
-  suspend fun rebuildUnityProject(project: ProjectEntity): ReconstructionReport {
+  suspend fun rebuildUnityProject(
+    project: ProjectEntity,
+    mode: RebuildMode = RebuildMode.FULL_PROJECT,
+  ): ReconstructionReport {
     val workspace = workspaceManager.getOrCreateWorkspace(project.id)
     val assets = repository.getAssetsForProject(project.id)
     val symbols = repository.getSymbolsForProject(project.id)
     val edges = repository.getEdgesForProject(project.id)
     val logLines = logger.logs.value.filter { it.projectId == project.id || it.projectId == null }.map { it.formatted() }
+    val refLibFile = File(workspace.inspectionDir, "referenced_libraries.json")
+    val referencedLibs =
+      if (refLibFile.exists()) runCatching { json.decodeFromString<List<String>>(refLibFile.readText()) }.getOrDefault(emptyList())
+      else emptyList()
     return projectRebuilder.rebuildProject(
       project = project,
       assets = assets,
@@ -511,6 +428,8 @@ class ReuPipelineOrchestrator(
       edges = edges,
       logs = logLines,
       outputRoot = workspace.reconstructedProjectDir,
+      mode = mode,
+      referencedLibraries = referencedLibs,
     )
   }
 
@@ -520,7 +439,9 @@ class ReuPipelineOrchestrator(
     onProgress: suspend (Int, String) -> Unit,
   ): ZipExportResult {
     val workspace = workspaceManager.getOrCreateWorkspace(project.id)
-    if (!File(workspace.reconstructedProjectDir, "Packages/manifest.json").exists()) {
+    val hasFullProject = File(workspace.reconstructedProjectDir, "Packages/manifest.json").exists()
+    val hasCodeOnly = File(workspace.reconstructedProjectDir, "Scripts").exists()
+    if (!hasFullProject && !hasCodeOnly) {
       rebuildUnityProject(project)
     }
     val zipFile = File(workspace.exportsDir, "${FormatUtils.sanitizeFileName(project.displayName)}_RecoveredProject.zip")

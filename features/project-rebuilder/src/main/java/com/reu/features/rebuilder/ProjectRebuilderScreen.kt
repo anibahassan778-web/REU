@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.reu.core.database.ProjectEntity
+import com.reu.engine.reconstruction.RebuildMode
 import com.reu.features.state.ReuUiState
 import com.reu.features.ui.LocalMonoFont
 import com.reu.features.ui.LocalReuStrings
@@ -29,7 +31,7 @@ import com.reu.features.ui.ReuSectionCard
 @Composable
 fun ProjectRebuilderScreen(
   state: ReuUiState,
-  onRebuildProject: (ProjectEntity) -> Unit,
+  onRebuildProject: (ProjectEntity, RebuildMode) -> Unit,
   onNavigate: (ReuRoute) -> Unit,
 ) {
   val strings = LocalReuStrings.current
@@ -50,7 +52,8 @@ fun ProjectRebuilderScreen(
       ) {
         Text(
           text =
-            "Target Layout: RecoveredProject/ (Assets/{Scripts,Scenes,Prefabs,Materials,Textures,Models,Audio,Animations,Shaders,ScriptableObjects}, Packages/manifest.json, ProjectSettings/, REU_Report/)",
+            "Code-Only Mode: Scripts/<GameAssembly>/<Type>.cs (omits assets, audio, and included library DLLs).\n" +
+              "Full Project Mode: RecoveredProject/ (Assets/*, Packages/manifest.json, ProjectSettings/, REU_Report/) with third-party libraries excluded from Scripts/.",
           fontFamily = mono,
           style = MaterialTheme.typography.labelSmall,
           color = ReuPalette.TextMuted,
@@ -62,7 +65,14 @@ fun ProjectRebuilderScreen(
           }
         } else {
           Button(
-            onClick = { onRebuildProject(project) },
+            onClick = { onRebuildProject(project, RebuildMode.CODE_ONLY) },
+            modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 48.dp).testTag("recover_code_only_button"),
+          ) {
+            Text(if (strings.isArabic) "استرداد الشيفرة فقط (بدون أصول أو مكتبات)" else "Recover Game Code Only (No Assets / Libraries)")
+          }
+          Spacer(Modifier.height(8.dp))
+          FilledTonalButton(
+            onClick = { onRebuildProject(project, RebuildMode.FULL_PROJECT) },
             modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 48.dp).testTag("rebuild_project_button"),
           ) {
             Text(strings.actionRebuildProject)
@@ -74,11 +84,12 @@ fun ProjectRebuilderScreen(
     if (report != null) {
       item {
         ReuSectionCard(
-          title = if (report.validationPassed) "Reconstruction Validated" else "Reconstruction Completed with Warnings",
+          title = if (report.validationPassed) "Reconstruction Validated (${report.mode.name})" else "Reconstruction Completed with Warnings",
           subtitle = report.outputDirectory,
           icon = Icons.Default.CheckCircle,
         ) {
-          Text("Scripts Written: ${report.scriptsWritten}", fontFamily = mono, style = MaterialTheme.typography.bodySmall, color = ReuPalette.AmberAccent)
+          Text("Game Scripts Written: ${report.scriptsWritten}", fontFamily = mono, style = MaterialTheme.typography.bodySmall, color = ReuPalette.AmberAccent)
+          Text("Excluded Libraries (No Reinstall Conflicts): ${report.excludedLibraryCount}", fontFamily = mono, style = MaterialTheme.typography.bodySmall, color = ReuPalette.CyanAccent)
           Text("Assets Copied: ${report.assetsCopied}", fontFamily = mono, style = MaterialTheme.typography.bodySmall, color = ReuPalette.EmeraldAccent)
           Text("Missing / Unextracted Assets: ${report.missingOrPlaceholderCount}", fontFamily = mono, style = MaterialTheme.typography.bodySmall, color = ReuPalette.CrimsonAccent)
           Spacer(Modifier.height(6.dp))

@@ -1,5 +1,0 @@
-{
-  "unityEditorInstalledOnDevice": false,
-  "targetUnityVersion": "2021.3.8f1",
-  "compatibilitySummary": "Mono build: reconstructed C# outlines & CIL disassembly exported; verify method bodies before opening in Unity Editor."
-}

@@ -1,0 +1,390 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+# Reconstructed by REU SceneEngine from _unpacked/assets_bin_Data_data.unity3d/level1
+--- !u!1 &1
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 23}
+  - component: {fileID: 22}
+  - component: {fileID: 31}
+  - component: {fileID: 30}
+  - component: {fileID: 16}
+  - component: {fileID: 32}
+  - component: {fileID: 33}
+  m_Layer: 5
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &2
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 24}
+  - component: {fileID: 17}
+  - component: {fileID: 34}
+  m_Layer: 5
+  m_Name: HowToPlayText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &3
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 25}
+  - component: {fileID: 18}
+  - component: {fileID: 35}
+  m_Layer: 5
+  m_Name: Main
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &4
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 26}
+  - component: {fileID: 19}
+  - component: {fileID: 36}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &5
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27}
+  - component: {fileID: 20}
+  - component: {fileID: 38}
+  - component: {fileID: 37}
+  - component: {fileID: 39}
+  m_Layer: 5
+  m_Name: OK
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &6
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 28}
+  - component: {fileID: 21}
+  - component: {fileID: 40}
+  m_Layer: 5
+  m_Name: OKSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &7
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9}
+  - component: {fileID: 29}
+  - component: {fileID: 41}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &8
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 10}
+  - component: {fileID: 11}
+  - component: {fileID: 12}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9
+Transform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 7}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &10
+Transform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 8}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: -10.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!224 &23
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 1}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 0.0, y: 0.0, z: 0.0}
+  m_Children:
+  - {fileID: 27}
+  - {fileID: 24}
+  - {fileID: 25}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!224 &24
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 2}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 3.0, y: 2.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 23}
+  m_RootOrder: 1056964608
+--- !u!224 &25
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 3}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 3.0, y: 2.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 23}
+  m_RootOrder: 1056964608
+--- !u!224 &26
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 4}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 1.0, y: 1.0, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 27}
+  m_RootOrder: 0
+--- !u!224 &27
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 5}
+  m_LocalRotation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 3.0, y: 2.0, z: 1.0}
+  m_Children:
+  - {fileID: 26}
+  - {fileID: 28}
+  m_Father: {fileID: 23}
+  m_RootOrder: 1056964608
+--- !u!224 &28
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 6}
+  m_LocalRotation: {x: -0.0, y: -0.0, z: -0.0, w: 1.0}
+  m_LocalPosition: {x: 0.0, y: 0.0, z: 0.0}
+  m_LocalScale: {x: 0.33333337, y: 0.5, z: 1.0}
+  m_Children: []
+  m_Father: {fileID: 27}
+  m_RootOrder: 1056964608
+--- !u!20 &11
+Camera:
+  m_ObjectHideFlags: 0
+  m_Name: Camera_11
+--- !u!81 &12
+UnityClass_81:
+  m_ObjectHideFlags: 0
+  m_Name: UnityClass_81_12
+--- !u!104 &13
+UnityClass_104:
+  m_ObjectHideFlags: 0
+  m_Name: UnityClass_104_13
+--- !u!157 &14
+UnityClass_157:
+  m_ObjectHideFlags: 0
+  m_Name: UnityClass_157_14
+--- !u!196 &15
+UnityClass_196:
+  m_ObjectHideFlags: 0
+  m_Name: UnityClass_196_15
+--- !u!222 &16
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_16
+--- !u!222 &17
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_17
+--- !u!222 &18
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_18
+--- !u!222 &19
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_19
+--- !u!222 &20
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_20
+--- !u!222 &21
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_Name: CanvasRenderer_21
+--- !u!223 &22
+Canvas:
+  m_ObjectHideFlags: 0
+  m_Name: Canvas_22
+--- !u!114 &29
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 7}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 760} # UnityEngine.EventSystems.EventSystem (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &30
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 1}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1400} # UnityEngine.UI.GraphicRaycaster (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &31
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 1}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 83} # UnityEngine.UI.CanvasScaler (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &32
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 1}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1598} # UnityEngine.UI.Image (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &33
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 1}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1476} # BannerAds (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &34
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 2}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &35
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 3}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &36
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 4}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 592} # UnityEngine.UI.Text (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &37
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 5}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 476} # UnityEngine.UI.Button (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &38
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 5}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1598} # UnityEngine.UI.Image (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &39
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 5}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 880} # OKbutton (Assembly-CSharp.dll)
+  m_Name: 
+--- !u!114 &40
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 6}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1598} # UnityEngine.UI.Image (UnityEngine.UI.dll)
+  m_Name: 
+--- !u!114 &41
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 7}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 480} # UnityEngine.EventSystems.StandaloneInputModule (UnityEngine.UI.dll)
+  m_Name: 

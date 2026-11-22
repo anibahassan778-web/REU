@@ -1,0 +1,10 @@
+{
+  "projectName": "Pong version 1.2",
+  "packageName": "com.unity3d.player",
+  "sha256": "b7e5bc8aeac786974f64a3723553b106143668fef3b4606efbd649ef5b084884",
+  "unityVersion": "2021.3.8f1",
+  "scriptingBackend": "MONO",
+  "gameSymbolCount": 17,
+  "excludedLibraryCount": 121,
+  "assetCount": 2053
+}

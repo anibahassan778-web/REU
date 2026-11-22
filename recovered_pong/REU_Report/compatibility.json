@@ -1,0 +1,5 @@
+{
+  "unityEditorInstalledOnDevice": false,
+  "targetUnityVersion": "2021.3.8f1",
+  "compatibilitySummary": "Mono build: reconstructed C# classes & CIL bodies exported for game assemblies only; 121 engine/library DLLs excluded; all extracted textures, sprites, fonts, shaders, materials, models, animations, and scenes copied into Assets/."
+}

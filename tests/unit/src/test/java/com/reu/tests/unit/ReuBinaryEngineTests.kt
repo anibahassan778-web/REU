@@ -71,6 +71,12 @@ class ReuBinaryEngineTests {
     assertEquals("Move", hero.methods.first().name)
     assertTrue(hero.methods.first().ilDisassembly.contains("ldarg.0"))
     assertTrue(hero.methods.first().ilDisassembly.contains("ret"))
+    assertTrue(MonoAnalyzer.isIncludedLibraryAssembly("Mono.Security.dll"))
+    assertTrue(MonoAnalyzer.isIncludedLibraryAssembly("Newtonsoft.Json.dll"))
+    assertTrue(MonoAnalyzer.isIncludedLibraryAssembly("UnityEngine.CoreModule.dll"))
+    assertTrue(MonoAnalyzer.isIncludedLibraryAssembly("System.Core.dll"))
+    assertTrue(!MonoAnalyzer.isIncludedLibraryAssembly("Assembly-CSharp.dll"))
+    assertTrue(!MonoAnalyzer.isIncludedLibraryAssembly("Pong.Gameplay.dll"))
   }
 
   @Test
@@ -95,12 +101,69 @@ class ReuBinaryEngineTests {
     assertTrue(objRes.success && File(objRes.exportedPath!!).readText().contains("f 1 2 3"))
     assertTrue(gltfRes.success && File(gltfRes.exportedPath!!).readText().contains("\"version\": \"2.0\""))
 
-    // Texture DXT1 decode + TGA export (does not rely on native Android Bitmap in pure unit test if TGA, wait: exportRgbaTexture uses Bitmap.createBitmap — test DXT1 decoder directly here!)
-    // DXT1 4x4 white block: c0=0xFFFF, c1=0x0000, selector bits=0x00000000 (code 0 -> c0)
+    // Texture DXT1 decode + RGBA32/Alpha8/ETC_RGB4/ETC2_RGBA8 PNG export
     val dxt1Block = byteArrayOf(0xFF.toByte(), 0xFF.toByte(), 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)
-    val rgba = TextureEngine().decodeDxt1ToRgba(4, 4, dxt1Block)
+    val texEngine = TextureEngine()
+    val rgba = texEngine.decodeDxt1ToRgba(4, 4, dxt1Block)
     assertEquals(4 * 4 * 4, rgba.size)
     assertEquals(255, rgba[0].toInt() and 0xFF)
+
+    val pngRes = texEngine.decodeAndExportUnityTexture("etc_tile", 4, 4, 47, ByteArray(16), outDir)
+    assertTrue(pngRes.success && pngRes.exportedPath != null)
+    val pngBytes = File(pngRes.exportedPath!!).readBytes()
+    assertTrue(pngBytes.size > 16 && pngBytes[0] == 0x89.toByte() && pngBytes[1] == 'P'.code.toByte())
+
+    // FSB5 PCM16 (mode=2) direct WAV extraction
+    val fsbBuf = ByteBuffer.allocate(68).order(ByteOrder.LITTLE_ENDIAN).apply {
+      put("FSB5".toByteArray())
+      putInt(1) // version
+      putInt(1) // numSamples
+      putInt(0) // sampleHeadersSize
+      putInt(0) // nameTableSize
+      putInt(8) // dataSize
+      putInt(2) // mode = PCM16
+      position(60)
+      putShort(100); putShort(-100); putShort(200); putShort(-200)
+    }.array()
+    val fsbRes = AudioEngine().inspectAndExportAudioPayload("sfx_hit", fsbBuf, outDir, fallbackChannels = 1, fallbackSampleRate = 22050)
+    assertTrue(fsbRes.success && fsbRes.exportedPath!!.endsWith(".wav"))
+
+    // Synthetic UnityFS v7 container with blocksInfoNeedPadding (0x200) & uncompressed directory/blocks
+    val innerPayload = "UnityAssetStreamData".toByteArray()
+    val dirInfo = ByteBuffer.allocate(64).order(ByteOrder.BIG_ENDIAN).apply {
+      position(16) // skip 16-byte hash
+      putInt(1) // 1 block
+      putInt(innerPayload.size) // uncomp
+      putInt(innerPayload.size) // comp
+      putShort(0) // flags=uncompressed
+      putInt(1) // 1 node
+      putLong(0L) // offset
+      putLong(innerPayload.size.toLong()) // size
+      putInt(4) // flags
+      put("level0\u0000".toByteArray())
+    }
+    val dirInfoLen = dirInfo.position()
+    val dirInfoBytes = dirInfo.array().copyOf(dirInfoLen)
+
+    val hdr = ByteBuffer.allocate(256).order(ByteOrder.BIG_ENDIAN).apply {
+      put("UnityFS\u0000".toByteArray())
+      putInt(7)
+      put("5.x.x\u00002021.3.8f1\u0000".toByteArray())
+      putLong(0L) // bundleSize placeholder
+      putInt(dirInfoBytes.size)
+      putInt(dirInfoBytes.size)
+      putInt(0x200) // blocksInfoNeedPadding
+      while (position() % 16 != 0) put(0)
+      put(dirInfoBytes)
+      while (position() % 16 != 0) put(0)
+      put(innerPayload)
+    }
+    val fsFile = File(tempFolder.root, "bundle.unity3d").apply {
+      writeBytes(hdr.array().copyOf(hdr.position()))
+    }
+    val unpacked = UnityAssetParser().unpackUnityFs(fsFile, File(tempFolder.root, "unpacked"))
+    assertTrue(unpacked != null && unpacked.unpackedFiles.size == 1)
+    assertEquals("UnityAssetStreamData", unpacked!!.unpackedFiles.first().readText())
   }
 
   private fun buildMinimalElf64WithSymbols(): ByteArray {

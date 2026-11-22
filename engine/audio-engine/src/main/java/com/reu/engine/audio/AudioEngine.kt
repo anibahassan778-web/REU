@@ -21,9 +21,12 @@ class AudioEngine {
     name: String,
     payload: ByteArray,
     outputDir: File,
+    fallbackChannels: Int = 2,
+    fallbackSampleRate: Int = 44100,
+    fallbackBitsPerSample: Int = 0,
   ): AudioExtractionResult {
     if (!outputDir.exists()) outputDir.mkdirs()
-    val safeName = name.replace(Regex("[^A-Za-z0-9._-]"), "_")
+    val safeName = name.replace(Regex("[^A-Za-z0-9._-]"), "_").ifBlank { "audio" }
 
     // 1. Check Ogg Vorbis magic ("OggS")
     val oggIdx = indexOfMagic(payload, byteArrayOf('O'.code.toByte(), 'g'.code.toByte(), 'g'.code.toByte(), 'S'.code.toByte()))
@@ -34,8 +37,8 @@ class AudioEngine {
         success = true,
         name = name,
         detectedCodec = "Ogg Vorbis",
-        sampleRate = 44100,
-        channels = 2,
+        sampleRate = fallbackSampleRate,
+        channels = fallbackChannels,
         exportedPath = outFile.absolutePath,
         note = "Extracted native Ogg Vorbis stream.",
       )
@@ -50,8 +53,8 @@ class AudioEngine {
         success = true,
         name = name,
         detectedCodec = "RIFF PCM WAV",
-        sampleRate = 44100,
-        channels = 2,
+        sampleRate = fallbackSampleRate,
+        channels = fallbackChannels,
         exportedPath = outFile.absolutePath,
         note = "Extracted RIFF WAV stream.",
       )
@@ -68,18 +71,56 @@ class AudioEngine {
         val nameTableSize = src.readI32LE()
         val dataSize = src.readI32LE()
         val mode = src.readI32LE()
+        val headerBase = if (version == 0) 64 else 60
+        val dataStart = fsbIdx + headerBase + sampleHeadersSize + nameTableSize
+
+        // Attempt direct WAV decoding when FSB5 contains uncompressed PCM (modes 1..5)
+        if (mode in 1..4 && numSamples >= 1 && dataStart < payload.size && dataSize > 0) {
+          val safeLen = minOf(dataSize, payload.size - dataStart)
+          if (mode == 2 && safeLen >= 2) {
+            val sampleCount = safeLen / 2
+            val pcm = ShortArray(sampleCount)
+            for (i in 0 until sampleCount) {
+              val b0 = payload[dataStart + i * 2].toInt() and 0xFF
+              val b1 = payload[dataStart + i * 2 + 1].toInt()
+              pcm[i] = ((b1 shl 8) or b0).toShort()
+            }
+            return writePcm16Wav(name, pcm, fallbackSampleRate.coerceAtLeast(8000), fallbackChannels.coerceIn(1, 8), outputDir)
+          }
+          if (mode == 1 && safeLen >= 1) {
+            val pcm = ShortArray(safeLen)
+            for (i in 0 until safeLen) {
+              val u = (payload[dataStart + i].toInt() and 0xFF) - 128
+              pcm[i] = (u shl 8).toShort()
+            }
+            return writePcm16Wav(name, pcm, fallbackSampleRate.coerceAtLeast(8000), fallbackChannels.coerceIn(1, 8), outputDir)
+          }
+        }
+
         val outFile = File(outputDir, "$safeName.fsb5")
         FileOutputStream(outFile).use { it.write(payload, fsbIdx, payload.size - fsbIdx) }
         return AudioExtractionResult(
           success = true,
           name = name,
           detectedCodec = "FMOD FSB5 (mode=$mode, v=$version)",
-          sampleRate = 44100,
-          channels = 2,
+          sampleRate = fallbackSampleRate,
+          channels = fallbackChannels,
           exportedPath = outFile.absolutePath,
           note = "Preserved original FSB5 container ($numSamples sub-samples, dataSize=$dataSize bytes).",
         )
       }
+    }
+
+    // 4. Raw PCM fallback ONLY when explicit AudioClip metadata confirms uncompressed PCM (compressionFormat == 0)
+    if (fallbackBitsPerSample == 16 && payload.size >= 4 && fallbackSampleRate in 8000..192000 && fallbackChannels in 1..8) {
+      val sampleCount = payload.size / 2
+      val pcm = ShortArray(sampleCount)
+      for (i in 0 until sampleCount) {
+        val b0 = payload[i * 2].toInt() and 0xFF
+        val b1 = payload[i * 2 + 1].toInt()
+        pcm[i] = ((b1 shl 8) or b0).toShort()
+      }
+      return writePcm16Wav(name, pcm, fallbackSampleRate, fallbackChannels, outputDir)
     }
 
     return AudioExtractionResult(
@@ -101,7 +142,7 @@ class AudioEngine {
     outputDir: File,
   ): AudioExtractionResult {
     if (!outputDir.exists()) outputDir.mkdirs()
-    val safeName = name.replace(Regex("[^A-Za-z0-9._-]"), "_")
+    val safeName = name.replace(Regex("[^A-Za-z0-9._-]"), "_").ifBlank { "audio" }
     val outFile = File(outputDir, "$safeName.wav")
     val dataSize = pcmSamples.size * 2
     val byteRate = sampleRate * channels * 2
@@ -122,12 +163,12 @@ class AudioEngine {
       writeIntLE(36 + dataSize)
       fos.write("WAVEfmt ".toByteArray(Charsets.US_ASCII))
       writeIntLE(16)
-      writeShortLE(1) // PCM
+      writeShortLE(1)
       writeShortLE(channels)
       writeIntLE(sampleRate)
       writeIntLE(byteRate)
       writeShortLE(blockAlign)
-      writeShortLE(16) // bits per sample
+      writeShortLE(16)
       fos.write("data".toByteArray(Charsets.US_ASCII))
       writeIntLE(dataSize)
       val buf = ByteArray(dataSize)

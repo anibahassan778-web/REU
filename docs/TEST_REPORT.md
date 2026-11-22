@@ -5,7 +5,7 @@
 | Verification Step | Command / Tool | Result | Executed |
 |---|---|---|---|
 | Full Android Build | `compile_applet` | **Passed** (`Build succeeded - the applet is compiled`) | Yes |
-| JVM Unit + Integration + Robolectric UI Suite | `gradle :app:testDebugUnitTest` | **11 / 11 Passed** (0 failed, 0 skipped) | Yes |
+| JVM Unit + Integration + Robolectric UI Suite | `gradle :app:testDebugUnitTest` | **13 / 13 Passed** (0 failed, 0 skipped) | Yes |
 | C++20 Native Engine Unit Tests | `native/tests/native_unit_tests.cpp` via CMake / `ctest` | **Not Executed in Container** (NDK, CMake, and host `clang++`/`g++` absent) | No |
 | On-Device Android Instrumentation Tests | `gradle :app:connectedAndroidTest` | **Not Executed in Container** (No Android Emulator / ADB in container) | No |
 
@@ -16,24 +16,26 @@
 Executed across `:app`, `:core`, `:engine`, `:integrations`, and `:features` on OpenJDK `21.0.13+9-LTS`, Gradle `9.3.1`, AGP `9.1.1`, and Robolectric `4.16.1` (`sdk = 36`).
 
 ### 2.1 Security & Core Tests (`com.reu.tests.unit.ReuSecurityAndCoreTests`)
-- **Result:** 2 / 2 passed (`0.004s`)
+- **Result:** 2 / 2 passed
 - **Cases:**
   1. `integrity verifier produces standard SHA-256 digest` — Verifies streaming SHA-256 hashing matches known NIST digest vectors (`abc` -> `ba7816bf...`).
   2. `path traversal guard blocks Zip-Slip and allows safe paths` — Verifies `../` traversal, absolute paths, and null-byte names are rejected while normalized safe archive entries succeed.
 
 ### 2.2 Binary Reverse-Engineering Engine Unit Tests (`com.reu.tests.unit.ReuBinaryEngineTests`)
-- **Result:** 4 / 4 passed (`0.037s`)
+- **Result:** 4 / 4 passed
 - **Cases:**
   1. `elf analyzer parses ELF64 AArch64 header sections and exported symbols` — Constructs a synthetic ELF64 `EM_AARCH64` `ET_DYN` shared object with `.shstrtab`, `.dynstr`, and `.dynsym` (`il2cpp_init`) and verifies architecture, section headers, and symbol extraction.
   2. `global metadata parser and il2cpp analyzer extract types methods and fields` — Constructs a binary `global-metadata.dat` v29 image (`0xFAB11BAF`) and verifies namespace/type/method/field table decoding, generated `PlayerController` dummy C# stub output, and explicit limitation reporting.
-  3. `mono analyzer parses PE32 CLR CLI header and disassembles CIL opcodes` — Constructs a valid PE32 binary with `.text`, CLR CLI header, `BSJB` metadata root, `#~` and `#Strings` streams, and tiny-format CIL body (`ldarg.0`, `ret`), verifying `DECOMPILED_RECONSTRUCTED` provenance and CIL opcode disassembly.
-  4. `unity asset parser audio model and texture engines export valid files` — Verifies pure-Kotlin LZ4 block decompression, PCM16 `RIFF` WAV export, Wavefront `.obj` and embedded `glTF 2.0` mesh export, and `DXT1/BC1` 4x4 RGBA block decoding.
+  3. `mono analyzer parses PE32 CLR CLI header and disassembles CIL opcodes` — Constructs a valid PE32 binary with `.text`, CLR CLI header, `BSJB` metadata root, `#~` and `#Strings` streams, and tiny-format CIL body (`ldarg.0`, `ret`), verifying `DECOMPILED_RECONSTRUCTED` provenance, CIL opcode disassembly, and `MonoAnalyzer.isIncludedLibraryAssembly(...)` filtering (`Mono.Security.dll`, `Newtonsoft.Json.dll`, `UnityEngine.*`, `System.*` excluded; game assemblies retained).
+  4. `unity asset parser audio model and texture engines export valid files` — Verifies pure-Kotlin LZ4 block decompression, `UnityFs` v7 unpacking (`blocksInfoNeedPadding 0x200`), `ETC2_RGBA8` PNG decoding via pure-Kotlin RGBA PNG writer, PCM16 `RIFF` WAV & FSB5 PCM16-to-WAV export, Wavefront `.obj` and embedded `glTF 2.0` mesh export, and `DXT1/BC1` 4x4 RGBA block decoding.
 
 ### 2.3 End-to-End Pipeline & Integration Tests (`com.reu.tests.integration.ReuPipelineAndRebuilderTests`)
-- **Result:** 2 / 2 passed (`0.337s`)
+- **Result:** 4 / 4 passed
 - **Cases:**
   1. `end to end APK inspection blocks zip slip detects Unity IL2CPP rebuilds project and exports zip` — Builds an in-memory Unity IL2CPP APK containing `lib/arm64-v8a/libil2cpp.so`, `lib/arm64-v8a/libunity.so`, `assets/bin/Data/Managed/Metadata/global-metadata.dat`, `assets/bin/Data/globalgamemanagers`, and a malicious `../../evil.txt` Zip-Slip entry; verifies Zip-Slip rejection, IL2CPP + Unity detection, ELF/metadata analysis, `RecoveredProject/` reconstruction (`Assets/Scripts/`, `ProjectSettings/`, `Packages/manifest.json`, `REU_Report/` provenance reports), and exportable ZIP generation with SHA-256 verification.
   2. `tool module manager enforces SHA-256 verification and rejects executable DEX packages` — Seeds the Room-backed tool catalog and verifies that mismatched SHA-256 archives and any archive containing `.dex`, `.jar`, or `.so` executable payloads are rejected to enforce Google Play policy compliance.
+  3. `code-only rebuild omits assets and excludes included library assemblies` — Verifies `RebuildMode.CODE_ONLY` writes only `Scripts/<GameAssembly>/<Type>.cs`, omits `Newtonsoft.Json.dll` / `Mono.Security.dll` and all assets/audio/`Assets/`/`Packages/`/`ProjectSettings/`.
+  4. `full project extraction unpacks UnityFS bundle and exports textures sprites audio fonts shaders and scenes` — Constructs a synthetic APK with a `UnityFS` `data.unity3d` bundle containing a `SerializedFile` v22 scene (`level0`) with `Texture2D` (RGBA32), `Sprite`, `AudioClip` (PCM16), `GameObject` + `Transform`, `Shader` (`Sprites/Default`), `Font` (valid SFNT `.ttf`), `Assembly-CSharp.dll`, and `Newtonsoft.Json.dll`; verifies `UnityFullAssetExtractor` + `ProjectRebuilder(RebuildMode.FULL_PROJECT)` exports valid PNG, cropped Sprite PNG, RIFF WAV Audio, TTF Font, named ShaderLab file, `.unity` YAML scene, and game-only C# scripts with `missingOrPlaceholderCount == 0`.
 
 ### 2.4 Robolectric Compose UI & Localization Tests (`com.example.ExampleRobolectricTest` & `com.example.ExampleUnitTest`)
 - **Result:** 3 / 3 passed (`14.202s` combined)

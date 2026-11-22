@@ -1,0 +1,7 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!91 &9100000
+AnimatorController:
+  m_ObjectHideFlags: 0
+  m_Name: Main Camera
+  # Reconstructed metadata stub from _unpacked/assets_bin_Data_data.unity3d/sharedassets3.assets (PathID 3, 432 bytes)

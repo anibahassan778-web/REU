@@ -230,7 +230,8 @@ class ApkInspector {
 
   fun isUnityRelevantPath(entryPath: String): Boolean {
     val p = entryPath.replace('\\', '/').lowercase()
-    return p.contains("libunity.so") ||
+    return p == "androidmanifest.xml" ||
+      p.contains("libunity.so") ||
       p.contains("libil2cpp.so") ||
       p.contains("libmono") ||
       p.contains("global-metadata.dat") ||
@@ -245,8 +246,16 @@ class ApkInspector {
       p.contains("/assets/aa/") ||
       p.startsWith("assets/aa/") ||
       p.contains("globalgamemanagers") ||
+      p.endsWith("unity default resources") ||
+      p.endsWith("unity_builtin_extra") ||
       Regex("(^|/)level[0-9]+$").containsMatchIn(p) ||
       p.contains("streamingassets/") ||
+      p.startsWith("res/") ||
+      (p.startsWith("assets/") &&
+        (p.endsWith(".json") || p.endsWith(".xml") || p.endsWith(".txt") || p.endsWith(".bytes") ||
+          p.endsWith(".png") || p.endsWith(".jpg") || p.endsWith(".jpeg") || p.endsWith(".webp") ||
+          p.endsWith(".wav") || p.endsWith(".ogg") || p.endsWith(".mp3") || p.endsWith(".fsb") ||
+          p.endsWith(".ttf") || p.endsWith(".otf") || p.endsWith(".mp4") || p.endsWith(".webm"))) ||
       p.endsWith(".so")
   }
 

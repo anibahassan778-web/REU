@@ -99,7 +99,10 @@ class UnityBuildDetector {
           hasGgm = true
           assetFiles.add(rel)
         }
-        name.endsWith(".assets") || name.endsWith(".ress") || name.endsWith(".resource") || name == "data.unity3d" -> {
+        name == "unity default resources" || name == "unity_builtin_extra" -> {
+          assetFiles.add(rel)
+        }
+        name.endsWith(".assets") || name.endsWith(".ress") || name.endsWith(".resource") -> {
           assetFiles.add(rel)
         }
         name.endsWith(".bundle") || name.endsWith(".unity3d") -> {
